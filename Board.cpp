@@ -75,13 +75,12 @@ void Board::operator = (char c) const {
     return (*this);
 }
 
- istream& operator >> (istream& in,  Board c){
+ istream& operator >> (istream& in,  Board& c){
   string path="board5.txt";
-  c.~Board();
   string line;
   getline(in,line);
   int num= line.length();
-  const Board& d{num};
+   Board d{num};
   for(int i=0;i<num;i++){
     d[{0,i}]=line.at(i);
   }
@@ -91,8 +90,8 @@ void Board::operator = (char c) const {
       d[{i,j}]=line.at(j);
     }
   }
-  cout<<d;
-  return in;
+  c=d;
+return in;
 }
 
 

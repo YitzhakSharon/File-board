@@ -7,7 +7,7 @@
 	int main() {
 	Board board;
 	cin >> board;
-	cout<<board;
+	cout<<board<<endl;;
 //	string filename = board.draw(600);
 	//cout << filename << endl;
 	return 0;
