@@ -75,30 +75,24 @@ void Board::operator = (char c) const {
     return (*this);
 }
 
- istream& operator >> (istream& is,  Board c){
-  string path;
-  is>>path;
-  ifstream imageFile(path);
+ istream& operator >> (istream& in,  Board c){
+  string path="board5.txt";
+  c.~Board();
   string line;
-  imageFile.getline(line,100);
-
+  getline(in,line);
   int num= line.length();
-  cout<<"num "<<line<<endl;
-  const Board& temp{num};
+  const Board& d{num};
   for(int i=0;i<num;i++){
-    temp[{0,i}]=line[i];
+    d[{0,i}]=line.at(i);
   }
-
   for(int i=1; i<num; i++){
-    imageFile.getline(line,100);
+    getline(in,line);
     for(int j=0; j<num; j++){
-      temp[{i,j}]=line[j];
+      d[{i,j}]=line.at(j);
     }
   }
-  imageFile.close();
-  c=temp;
-  cout<<c;
-return is;
+  cout<<d;
+  return in;
 }
 
 
