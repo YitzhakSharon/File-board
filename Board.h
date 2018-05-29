@@ -43,6 +43,6 @@ class Board{
         Board& operator = (const Board& b);
         ~Board();
         friend ostream& operator << (ostream& os,const Board& c);
-        friend istream& operator >> (istream& is,const  Board& c);
+        friend istream& operator >> (istream& is  ,Board c);
 
 };

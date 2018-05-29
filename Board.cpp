@@ -75,43 +75,29 @@ void Board::operator = (char c) const {
     return (*this);
 }
 
- istream& operator >> (istream& is, const Board& c){
+ istream& operator >> (istream& is,  Board c){
   string path;
   is>>path;
   ifstream imageFile(path);
-
-  while(!(imageFile.is_open())){
-      cout<<"the file dose not exist, please try again";
-      is>>path;
-  }
   string line;
-  getline(imageFile,line);
+  imageFile.getline(line,100);
 
   int num= line.length();
+  cout<<"num "<<line<<endl;
   const Board& temp{num};
   for(int i=0;i<num;i++){
     temp[{0,i}]=line[i];
   }
 
   for(int i=1; i<num; i++){
-    getline(imageFile,line);
+    imageFile.getline(line,100);
     for(int j=0; j<num; j++){
       temp[{i,j}]=line[j];
     }
   }
   imageFile.close();
-  c.num = temp.num;
-  Character** temp1 = new Character*[num];
-  for(int i = 0 ; i < num ; i++)
-      temp1[i] = new Character[num];
-
-  for(int i=0;i<this->num;i++){
-      for(int j=0; j<this->num;j++){
-          temp1[i][j]=temp.board[i][j];
-      }
-  }
-  c.board=temp1;
-
+  c=temp;
+  cout<<c;
 return is;
 }
 
