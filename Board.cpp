@@ -1,8 +1,10 @@
 #include "Board.h"
 #include <fstream>
 #include <string>
-
+#include <math.h>
 using namespace std;
+static int file_num=0;
+
 
 const int Board:: size() const {return this->num;}
 
@@ -76,7 +78,6 @@ void Board::operator = (char c) const {
 }
 
  istream& operator >> (istream& in,  Board& c){
-  string path="board5.txt";
   string line;
   getline(in,line);
   int num= line.length();
@@ -94,8 +95,102 @@ void Board::operator = (char c) const {
 return in;
 }
 
+string Board::draw(int n){
+    file_num++;
+    string name="12345"+to_string(file_num)+".ppm";
+    ofstream imageFile(name, ios::out | ios::binary);
+    imageFile << "P6" << endl <<n<<" " <<n<< endl << 255 << endl;
+    if(this->num==0){
+        this->num=1;
+    }
+    RGB image[n*n];
+    	int size=(n)/num;
+      	for (int j = 0; j < n; ++j)  {  // row
+        		for (int i = 0; i < n; ++i) { // column
+    			image[n*j+i].red = (255);
+    			image[n*j+i].blue = (255);
+    			image[n*j+i].green = (255);
+        }
+      }
+
+    for(int i=size; i<n; i = i+size ){
+      for(int j=0; j<n;j++){
+        image[i*n+j].red = 0;
+        image[i*n+j].green =0;
+        image[i*n+j].blue =0;
+        image[j*n+i].red = 0;
+        image[j*n+i].green =0;
+        image[j*n+i].blue =0;
+
+      }
+
+    }
+    int i=0;
+      for (int k = 0; k < num; k++)  {  // row
+          for (int l = 0; l < num; l++) { // colum
+            if(this->board[k][l]=='X'){
+              drowX(image,n,size,i);
+              cout << "drew  x " <<i << '\n';
+
+            }
+            else if(this->board[k][l]=='O'){
+
+              drowO(image,n,size,i);
+              cout << "drew O " << i<<'\n';
 
 
+            }
+            i+=size;
+          }
+
+      }
+
+  imageFile.write(reinterpret_cast<char*>(&image), 3*n*n);
+  imageFile.close();
+
+  return name;
+}
+
+void Board::drowX (RGB image[], int n, int size, int start){
+
+  for(int i=start; i<start+size;i++){
+      image[i+n+1].red=0;
+      image[i+n+1].green=0;
+      image[i+n+1].blue=0;
+  }
+  // cout<<"111"<<endl;
+  // int temp=start+size-1;
+  // for(int i=temp; i>start;i--){
+  //   image[(temp-i)+i].red=0;
+  //   image[(temp-i)+i].green=0;
+  //   image[(temp-i)+i].blue=0;
+  // }
+  cout<<"222"<<endl;
+}
+
+void Board::drowO (RGB image[], int n, int size, int start){
+  int center=(start+size-1)/2;
+  Coordinate cen {center,center};
+  int rad=size/4;
+  for(int i=start; i<start+size; i++){
+    for(int j=start; j<start+size;j++){
+      Coordinate t {i,j};
+      if(distance(t,cen,rad)){
+        image[i+n+j].red=0;
+        image[i+n+j].green=0;
+        image[i+n+j].blue=0;
+      }
+    }
+  }
+
+}
+
+bool Board::distance(Coordinate a, Coordinate b, int rad){
+  int x=a.x+b.x;
+  int y=a.y+b.y;
+  int dis=pow(x,2)+pow(y,2);
+  return dis==pow(rad,2);
+}
 //int main(){
 	// Board board1{4};  // Initializes a 4x4 board
 	// cout << board1 << endl;   /* Shows an empty board:

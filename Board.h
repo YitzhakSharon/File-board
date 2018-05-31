@@ -3,7 +3,8 @@
 #include "Character.h"
 #include "IllegalCoordinateException.h"
 #include "IllegalCharException.h"
-
+#include <cstdlib>
+#include <sstream>
 using namespace std;
 
 class Board{
@@ -22,6 +23,13 @@ class Board{
                 }
             }
             this->board = b;
+        };
+
+        struct RGB {
+          uint8_t red, green, blue;
+        public:
+          RGB() {}
+          RGB(uint8_t red, uint8_t green, uint8_t blue): red(red), green(green), blue(blue) {}
         };
 
         Board():num(0){
@@ -44,5 +52,11 @@ class Board{
         ~Board();
         friend ostream& operator << (ostream& os,const Board& c);
         friend istream& operator >> (istream& is  ,Board& c);
+        string draw(int n);
+        void drowX (RGB image[], int n, int size, int start);
+        void drowO (RGB image[], int n, int size, int start);
+        bool distance(Coordinate a, Coordinate b, int rad);
+
+
 
 };
