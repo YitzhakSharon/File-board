@@ -9,6 +9,8 @@
 	cin >> board;
 	cout<<board<<endl;
 	string filename = board.draw(600);
+	string filename1 = board.draw(600);
+
 	cout << filename << endl;
 	return 0;
 	}

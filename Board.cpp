@@ -157,7 +157,6 @@ void Board::drowX (RGB image[], int n, int size, int i, int j){
     image[count+counter].blue=0;
     counter++;
   }
-  cout << "drew  x " <<i<<" , "<<j<<endl;
 
 }
 
@@ -178,7 +177,6 @@ void Board::drowO (RGB image[], int n, int size, int i, int j){
             }
     }
   }
-  cout << "drew  O " <<i<<" , "<<j<<endl;
 
 }
 
