@@ -162,7 +162,7 @@ void Board::drowX (RGB image[], int n, int size, int i, int j){
 }
 
 void Board::drowO (RGB image[], int n, int size, int i, int j){
-  int rad=(size-size/10)/2;
+  int rad=(size -size/10)/2;
   int col=j*size;
   int row=i*size;
   int cen_x=(2*col+size)/2;
