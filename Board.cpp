@@ -163,10 +163,10 @@ void Board::drowX (RGB image[], int n, int size, int i, int j){
 
 void Board::drowO (RGB image[], int n, int size, int i, int j){
   int rad=(size -size/10)/2;
-  int col=j*size;
-  int row=i*n;
-  int cen_x=(2*col+size)/2;
-  int cen_y=(2*row+size)/2;
+  int col=j*size+1;
+  int row=i*size+1;
+  int cen_x=row+size/2;
+  int cen_y=col+size/2;
   Coordinate center {cen_x, cen_y};
   for (int k = row; k < row+size; k++)  {
         for (int l =col; l < col+size;l++) {
