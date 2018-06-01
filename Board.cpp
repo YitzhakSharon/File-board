@@ -134,6 +134,7 @@ string Board::draw(int n){
           }
 
       }
+              // drowX(image,n,size,0,2);
 
   imageFile.write(reinterpret_cast<char*>(&image), 3*n*n);
   imageFile.close();
@@ -142,15 +143,15 @@ string Board::draw(int n){
 }
 
 void Board::drowX (RGB image[], int n, int size, int i, int j){
-    int counter=0;
-  for(int count=i*n+j; count<(size*n)+i*n+j;count+=n){
+  int counter=0;
+  for(int count=(i*n+j)*size; count<(size*n)+(i*n+j)*size;count+=n){
       image[count+counter].red=0;
       image[count+counter].green=0;
       image[count+counter].blue=0;
       counter++;
   }
    counter=0;
-  for(int count =size*n+i*n+j; count>i*n+j; count-=n){
+  for(int count =size*(n+i*n+j); count>(i*n+j)*size; count-=n){
     image[count+counter].red=0;
     image[count+counter].green=0;
     image[count+counter].blue=0;
@@ -162,15 +163,16 @@ void Board::drowX (RGB image[], int n, int size, int i, int j){
 
 void Board::drowO (RGB image[], int n, int size, int i, int j){
   int rad=(size-size/10)/2;
-  int col=i*size;
-  int row=j*size;
-  int cen_x=(col+col+size)/2;
-  int cen_y=(row+row+size)/2;
+  int col=j*size;
+  int row=i*size;
+  int cen_x=(2*col+size)/2;
+  int cen_y=(2*row+size)/2;
   Coordinate center {cen_x, cen_y};
   for (int k = row; k < row+size; k++)  {
         for (int l =col; l < col+size;l++) {
             Coordinate temp {k,l};
             if ( distance(temp,center,rad) ){
+              cout<<"lllll"<<endl;
               image[n*k+l].red = 0;
               image[n*k+l].blue = 0;
               image[n*k+l].green = 0;
