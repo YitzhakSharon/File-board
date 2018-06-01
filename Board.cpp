@@ -125,20 +125,12 @@ string Board::draw(int n){
       }
 
     }
-    int i=0;
-      for (int k = 0; k < num; k++)  {  // row
-          for (int l = 0; l < num; l++) { // colum
-            if(this->board[k][l]=='X'){
-              drowX(image,n,size,k,l);
-              cout << "drew  x " <<i << '\n';
-            }
-            else if(this->board[k][l]=='O'){
-              drowO(image,n,size,k,l);
-              cout << "drew O " << i<<'\n';
-
-
-            }
-            i+=size;
+      for (int i = 0; i < num; i++)  {
+          for (int j = 0; j < num; j++) {
+            if(this->board[i][j]=='X')
+              drowX(image,n,size,i,j);
+            else if(this->board[i][j]=='O')
+              drowO(image,n,size,i,j);
           }
 
       }
@@ -155,17 +147,23 @@ void Board::drowX (RGB image[], int n, int size, int i, int j){
       image[count+counter].red=0;
       image[count+counter].green=0;
       image[count+counter].blue=0;
-      image[(size*n)+i*n+j-count-counter].red=0;
-      image[(size*n)+i*n+j-count-counter].green=0;
-      image[(size*n)+i*n+j-count-counter].blue=0;
       counter++;
   }
+   counter=0;
+  for(int count =size*n+i*n+j; count>i*n+j; count-=n){
+    image[count+counter].red=0;
+    image[count+counter].green=0;
+    image[count+counter].blue=0;
+    counter++;
+  }
+  cout << "drew  x " <<i<<" , "<<j<<endl;
+
 }
 
-void Board::drowO (RGB image[], int n, int size, int k, int l){
+void Board::drowO (RGB image[], int n, int size, int i, int j){
   int rad=(size-size/10)/2;
-  int col=l*size;
-  int row=k*size;
+  int col=i*size;
+  int row=j*size;
   int cen_x=(col+col+size)/2;
   int cen_y=(row+row+size)/2;
   Coordinate center {cen_x, cen_y};
@@ -179,7 +177,10 @@ void Board::drowO (RGB image[], int n, int size, int k, int l){
             }
     }
   }
+  cout << "drew  O " <<i<<" , "<<j<<endl;
+
 }
+
 bool Board:: distance(Coordinate a, Coordinate b, int rad){
   int x=(a.x-b.x)*(a.x-b.x);
   int y=(a.y-b.y)*(a.y-b.y);
