@@ -4,6 +4,7 @@
 #include "IllegalCoordinateException.h"
 #include "IllegalCharException.h"
 #include <cstdlib>
+#include <stdbool.h>
 #include <sstream>
 using namespace std;
 
@@ -53,8 +54,8 @@ class Board{
         friend ostream& operator << (ostream& os,const Board& c);
         friend istream& operator >> (istream& is  ,Board& c);
         string draw(int n);
-        void drowX (RGB image[], int n, int size, int start);
-        void drowO (RGB image[], int n, int size, int start);
+        void drowX (RGB image[], int n, int size, int k, int l);
+        void drowO (RGB image[], int n, int size, int k, int l);
         bool distance(Coordinate a, Coordinate b, int rad);
 
 
