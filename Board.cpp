@@ -164,7 +164,7 @@ void Board::drowX (RGB image[], int n, int size, int i, int j){
 void Board::drowO (RGB image[], int n, int size, int i, int j){
   int rad=(size -size/10)/2;
   int col=j*size;
-  int row=i*size;
+  int row=i*n;
   int cen_x=(2*col+size)/2;
   int cen_y=(2*row+size)/2;
   Coordinate center {cen_x, cen_y};
@@ -172,7 +172,6 @@ void Board::drowO (RGB image[], int n, int size, int i, int j){
         for (int l =col; l < col+size;l++) {
             Coordinate temp {k,l};
             if ( distance(temp,center,rad) ){
-              cout<<"lllll"<<endl;
               image[n*k+l].red = 0;
               image[n*k+l].blue = 0;
               image[n*k+l].green = 0;
