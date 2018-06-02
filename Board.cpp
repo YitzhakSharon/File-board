@@ -96,7 +96,14 @@ return in;
 }
 
 string Board::draw(int n){
-    file_num++;
+  while(true)
+{
+    ifstream kk(to_string(file_num)+".ppm");
+        if(!kk.good())
+            break;
+        else
+        file_num++;
+}
     string name="12345"+to_string(file_num)+".ppm";
     ofstream imageFile(name, ios::out | ios::binary);
     imageFile << "P6" << endl <<n<<" " <<n<< endl << 255 << endl;
